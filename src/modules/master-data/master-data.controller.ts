@@ -41,4 +41,14 @@ export class MasterDataController {
   findtipoEquipo() {
     return this.masterDataService.findAllTipoEquipo();
   }
+
+
+  @Get('roles')
+  findAllRoles() {
+    return this.masterDataService.findAllRoles();
+  }
+  @Get('ubicacion')
+  findAllUbicacion() {
+    return this.masterDataService.findAllUbicacion();
+  }
 }

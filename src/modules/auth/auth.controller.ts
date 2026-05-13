@@ -15,6 +15,9 @@ import { AuthService } from './auth.service';
 import { loginDto } from './dto/login.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { LoginRequestDto } from './dto/login-request.dto';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { VerifyRecoveryCodeDto } from './dto/verify-recovery-code.dto';
+import { ResetPasswordWithCodeDto } from './dto/reset-password-with-code.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Controller('auth')
@@ -27,6 +30,7 @@ export class AuthController {
   @Post('create-login')
   @HttpCode(HttpStatus.CREATED)
   async createLogin(@Body() body: loginDto) {
+     console.log(body)
     try {
       if (!body.email || !body.password) {
         throw new BadRequestException('Email and password are required');
@@ -78,6 +82,45 @@ export class AuthController {
       } else {
         return this.authService.changePassword(body);
       }
+    } catch (error) {
+      if (error instanceof HttpException) throw error;
+      throw new InternalServerErrorException(
+        error instanceof Error ? error.message : 'Error inesperado',
+      );
+    }
+  }
+
+  @Post('forgot-password')
+  @HttpCode(HttpStatus.OK)
+  async forgotPassword(@Body() body: ForgotPasswordDto) {
+    try {
+      return await this.authService.forgotPassword(body);
+    } catch (error) {
+      if (error instanceof HttpException) throw error;
+      throw new InternalServerErrorException(
+        error instanceof Error ? error.message : 'Error inesperado',
+      );
+    }
+  }
+
+  @Post('verify-recovery-code')
+  @HttpCode(HttpStatus.OK)
+  async verifyRecoveryCode(@Body() body: VerifyRecoveryCodeDto) {
+    try {
+      return await this.authService.verifyRecoveryCode(body);
+    } catch (error) {
+      if (error instanceof HttpException) throw error;
+      throw new InternalServerErrorException(
+        error instanceof Error ? error.message : 'Error inesperado',
+      );
+    }
+  }
+
+  @Post('reset-password')
+  @HttpCode(HttpStatus.OK)
+  async resetPassword(@Body() body: ResetPasswordWithCodeDto) {
+    try {
+      return await this.authService.resetPasswordWithCode(body);
     } catch (error) {
       if (error instanceof HttpException) throw error;
       throw new InternalServerErrorException(

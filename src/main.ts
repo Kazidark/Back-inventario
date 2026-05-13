@@ -16,21 +16,20 @@ async function bootstrap() {
 
   // CORS: permitir SOLO el frontend configurado (por .env)
   // Ej: FRONTEND_URL=http://localhost:5173
-  const allowedOrigins = (process.env.FRONTEND_URL ?? 'http://localhost:5173')
-    .split(',')
-    .map((s) => s.trim())
-    .filter(Boolean);
+  const allowedOrigins = (process.env.FRONTEND_URL)
+    // .map((s) => s.trim())
+    // .filter(Boolean);
 
-  console.log('[BACK][CORS] allowedOrigins:', allowedOrigins);
+  console.log( allowedOrigins);
 
   app.enableCors({
     origin: (origin, callback) => {
       // Requests server-to-server / herramientas (curl, Postman) pueden venir sin Origin
       if (!origin) return callback(null, true);
 
-      if (allowedOrigins.includes(origin)) return callback(null, true);
+      if (allowedOrigins === origin) return callback(null, true);
 
-      console.log('[BACK][CORS] blocked origin:', origin);
+      console.log( origin);
       return callback(new Error(`CORS blocked for origin: ${origin}`), false);
     },
     credentials: true,

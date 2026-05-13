@@ -21,22 +21,23 @@ export class CreateModuleModemDto {
 
   @IsOptional()
   @IsInt()
-  estado_modem: number;
+  estado_modem?: number | null;
 
   @IsOptional()
   @IsInt()
-  estado_equipo: number;
+  estado_equipo?: number | null;
 
   @IsOptional()
   @IsInt()
-  id_area: number;
-
-  @IsOptional()
-  usuario: number;
+  id_area?: number | null;
 
   @IsOptional()
   @IsInt()
-  id_chip: number;
+  usuario?: number | null;
+
+  @IsOptional()
+  @IsInt()
+  id_chip?: number | null;
 
   @IsOptional()
   @IsDateString()

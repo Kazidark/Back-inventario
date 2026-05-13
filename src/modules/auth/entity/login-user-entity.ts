@@ -14,11 +14,14 @@ export class LoginUserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
+  @Column({ unique: true ,name:'email'})
   email: string;
 
   @Column()
   password: string;
+
+
+
 
   @CreateDateColumn()
   createdAt: Date;

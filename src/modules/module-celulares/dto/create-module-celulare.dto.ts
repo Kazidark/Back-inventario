@@ -49,6 +49,21 @@ export class CreateModuleCelulareDto {
   numero_chip?: number;
 
   @IsOptional()
+  @IsString()
+  @MaxLength(255)
+  ticket?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(255)
+  email?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(255)
+  observacion?: string;
+
+  @IsOptional()
   @IsBoolean()
   activo?: boolean;
 

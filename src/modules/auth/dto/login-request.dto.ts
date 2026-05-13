@@ -7,4 +7,5 @@ export class LoginRequestDto {
   @IsString()
   @MinLength(1)
   password: string;
+  
 }

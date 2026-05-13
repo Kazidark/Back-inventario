@@ -50,6 +50,9 @@ export class ModuleCelularesService {
         nombre_colaborador: c.colaboradorRef?.nombre_completo ?? null,
         numero_chip: c.numero_chip,
         numero_chip_desc: c.chipRef?.numero_chip ?? null,
+        ticket: c.ticket,
+        correo_electronico: c.correo_electronico,
+        observacion: c.observacion,
         fecha_registro: c.fecha_registro,
         activo: c.activo,
       }));

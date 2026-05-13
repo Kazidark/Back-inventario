@@ -1,32 +1,25 @@
-import {
-  IsBoolean,
-  IsDate,
-  IsEmail,
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-} from 'class-validator';
+import { IsEmail, IsIn, IsNotEmpty, IsString, MinLength } from 'class-validator';
 
-export class registesUsers {
-  @IsNumber()
+/** Coincide con el body que envía `UsuarioForm.jsx` (usuario, email, password, rol). */
+export class CreateUserDto {
+  @IsString()
   @IsNotEmpty()
-  idUser: number;
-
-  @IsString()
-  nameUser: string;
-
-  @IsString()
-  passwordUser: string;
+  @MinLength(1)
+  usuario: string;
 
   @IsEmail()
-  emailUser: string;
+  @IsNotEmpty()
+  email: string;
 
   @IsString()
-  roleUser: string;
+  @IsNotEmpty()
+  @MinLength(6, { message: 'La contraseña debe tener al menos 6 caracteres' })
+  password: string;
 
-  @IsBoolean()
-  activoUser: boolean;
-
-  @IsDate()
-  fechaCreacionUser: Date;
+  @IsString()
+  @IsNotEmpty()
+  @IsIn(['Administrador', 'Usuario'], {
+    message: 'El rol debe ser Administrador o Usuario',
+  })
+  rol: string;
 }

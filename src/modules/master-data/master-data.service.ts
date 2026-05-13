@@ -7,8 +7,10 @@ import {
   MasterDataEstadoChip,
   MasterDataEstadoEquipo,
   MasterDataOperadores,
+  MasterDataRole,
   MasterDataTipoChip,
   MasterDataTipoEquipo,
+  MasterDataUbicacion,
 } from './entities/master-datum.entity';
 import { Repository } from 'typeorm';
 
@@ -31,6 +33,10 @@ export class MasterDataService {
     private readonly MasterDataTipoChip: Repository<MasterDataTipoChip>,
     @InjectRepository(MasterDataTipoEquipo)
     private readonly MasterDataTipoEquipo: Repository<MasterDataTipoEquipo>,
+    @InjectRepository(MasterDataRole)
+    private readonly MasterDataRole: Repository<MasterDataRole>,
+    @InjectRepository(MasterDataUbicacion)
+    private readonly MasterDataUbicacion: Repository<MasterDataUbicacion>,
   ) {}
 
   async findAllArea() {
@@ -122,4 +128,23 @@ export class MasterDataService {
       return [];
     }
   }
+
+    async findAllRoles() {
+      try {
+        const roles = await this.MasterDataRole.find();
+        return roles ?? [];
+      } catch (error) {
+        console.error(error);
+        return [];
+      }
+    }
+    async findAllUbicacion() {
+      try {
+        const ubicacion = await this.MasterDataUbicacion.find();
+        return ubicacion ?? [];
+      } catch (error) {
+        console.error(error);
+        return [];
+      }
+    }
 }

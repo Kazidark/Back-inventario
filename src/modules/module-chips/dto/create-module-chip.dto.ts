@@ -44,6 +44,19 @@ export class CreateModuleChipDto {
   @IsInt()
   usuario?: number;
 
+  @IsString()
+  @MaxLength(255)
+  ticket: string;
+
+  @IsString()
+  @MaxLength(255)
+  @IsOptional()
+  observacion: string;
+
+  @IsString()
+  @MaxLength(255)
+  correo_electronico: string;
+
   @IsOptional()
   @IsBoolean()
   activo?: boolean;

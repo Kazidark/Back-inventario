@@ -32,19 +32,19 @@ export class EntityMoculesModems {
   @Column({ name: 'imei_modem', type: 'varchar', nullable: true })
   imei_modem?: string | null;
 
-  @Column({ name: 'estado_modem', type: 'int' })
+  @Column({ name: 'estado_modem', type: 'int', nullable: true })
   estado_modem?: number | null;
 
-  @Column({ name: 'estado_equipo', type: 'int' })
+  @Column({ name: 'estado_equipo', type: 'int', nullable: true })
   estado_equipo?: number | null;
 
-  @Column({ name: 'id_area', type: 'int' })
-  id_area?: number;
+  @Column({ name: 'id_area', type: 'int', nullable: true })
+  id_area?: number | null;
 
-  @Column({ name: 'usuario', type: 'int' })
+  @Column({ name: 'usuario', type: 'int', nullable: true })
   usuario?: number | null;
 
-  @Column({ name: 'num_Chip', type: 'int' })
+  @Column({ name: 'num_Chip', type: 'int', nullable: true })
   num_Chip?: number | null;
 
   @Column({ name: 'fecha_registro', type: 'datetime' })

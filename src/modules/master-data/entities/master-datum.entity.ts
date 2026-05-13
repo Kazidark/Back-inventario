@@ -66,3 +66,23 @@ export class MasterDataTipoEquipo {
   @Column({ name: 'nombre_tipo_equipo' })
   nombre_tipo_equipo: string;
 }
+
+@Entity({ name: 'TBLM_permiso'})
+export class MasterDataRole {
+  @PrimaryColumn({ name: 'id_permisos' })
+  id_permisos: number;
+
+  @Column({ name: 'nombre_permisos' })
+  nombre_permisos: string;
+
+  @Column({ name: 'descripcion' })
+  descripcion: string;
+}
+
+@Entity({ name: 'TBLM_ubicacion', schema: 'dbo' })
+export class MasterDataUbicacion {
+  @PrimaryColumn({ name: 'id' })
+  id: number;
+  @Column({ name: 'descripcion' })
+  descripcion: string;
+}

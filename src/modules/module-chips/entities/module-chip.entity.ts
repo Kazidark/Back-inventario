@@ -42,6 +42,12 @@ export class EntityMoculesChips {
 
   @Column({ name: 'operador', type: 'int' })
   operador: number;
+  @Column({ name: 'ticket', type: 'varchar', length: 255 })
+  ticket: string;
+  @Column({ name: 'correo_electronico', type: 'varchar', length: 255 })
+  correo_electronico: string;
+  @Column({ name: 'observacion', type: 'varchar', length: 255 })
+  observacion: string;
 
   @ManyToOne(() => MasterDataOperadores, { createForeignKeyConstraints: false })
   @JoinColumn({ name: 'operador', referencedColumnName: 'id_operador' })
@@ -55,6 +61,7 @@ export class EntityMoculesChips {
 
   @Column({ name: 'area', type: 'int', nullable: true })
   area: number | null;
+
 
   @ManyToOne(() => MarterDataArea, { createForeignKeyConstraints: false })
   @JoinColumn({ name: 'area', referencedColumnName: 'id_area' })

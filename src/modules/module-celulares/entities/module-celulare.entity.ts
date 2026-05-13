@@ -42,6 +42,20 @@ export class ModuleCelulare {
   @Column({ name: 'numero_chip', type: 'int', nullable: true })
   numero_chip: number | null;
 
+  @Column({ name: 'tickets', type: 'varchar', length: 255, nullable: true })
+  ticket: string | null;
+
+  @Column({
+    name: 'email',
+    type: 'varchar',
+    length: 255,
+    nullable: true,
+  })
+  correo_electronico: string | null;
+
+  @Column({ name: 'observacion', type: 'varchar', length: 255, nullable: true })
+  observacion: string | null;
+
   @Column({ name: 'fecha_registro', type: 'datetime' })
   fecha_registro: Date;
 

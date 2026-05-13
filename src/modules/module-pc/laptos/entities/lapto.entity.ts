@@ -10,6 +10,7 @@ import {
   MasterDataAsignacion,
   MasterDataColaborador,
   MasterDataEstadoEquipo,
+  MasterDataUbicacion,
 } from '../../../master-data/entities/master-datum.entity';
 
 @Entity('pcs_laptops')
@@ -41,8 +42,8 @@ export class Lapto {
   @Column({ name: 'usuario', type: 'int', nullable: true })
   usuario: number | null;
 
-  @Column({ name: 'ubicacion', type: 'varchar', length: 100, nullable: true })
-  ubicacion: string | null;
+  @Column({ name: 'ubicacion', type: 'int', nullable: true })
+  ubicacion: number | null;
 
   @Column({
     name: 'observaciones',
@@ -82,4 +83,10 @@ export class Lapto {
   })
   @JoinColumn({ name: 'usuario', referencedColumnName: 'id_colaborador' })
   colaboradorRef?: MasterDataColaborador;
+
+  @ManyToOne(() => MasterDataUbicacion, {
+    createForeignKeyConstraints: false,
+  })
+  @JoinColumn({ name: 'ubicacion', referencedColumnName: 'id' })
+  ubicacionRef?: MasterDataUbicacion;
 }

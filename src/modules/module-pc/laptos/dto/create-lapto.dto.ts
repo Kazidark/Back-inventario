@@ -45,10 +45,11 @@ export class CreateLaptoDto {
   @IsInt()
   usuario?: number;
 
+  /** ID de catálogo `TBLM_ubicacion` (maestro). */
   @IsOptional()
-  @IsString()
-  @MaxLength(100)
-  ubicacion?: string;
+  @Type(() => Number)
+  @IsInt()
+  ubicacion?: number | null;
 
   @IsOptional()
   @IsString()

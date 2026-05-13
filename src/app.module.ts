@@ -11,6 +11,8 @@ import { ModuleMonitoresModule } from './modules/module-monitores/module-monitor
 import { ModuleTabletModule } from './modules/module-tablet/module-tablet.module';
 import { MasterDataModule } from './modules/master-data/master-data.module';
 import { ExportsModule } from './modules/exports/exports.module';
+import { SubirArchivoModule } from './modules/subir-archivo/subir-archivo.module';
+import { ColaboradorModule } from './modules/colaborador/colaborador.module';
 // import { AppController } from './app.controller';
 // import { AppService } from './app.service';
 
@@ -53,6 +55,8 @@ import { ExportsModule } from './modules/exports/exports.module';
     ModuleTabletModule,
     MasterDataModule,
     ExportsModule,
+    SubirArchivoModule,
+    ColaboradorModule,
   ],
   controllers: [], // todo : add controllers
   providers: [], // todo : add services

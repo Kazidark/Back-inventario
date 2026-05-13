@@ -9,8 +9,10 @@ import {
   MasterDataEstadoChip,
   MasterDataEstadoEquipo,
   MasterDataOperadores,
+  MasterDataRole,
   MasterDataTipoChip,
   MasterDataTipoEquipo,
+  MasterDataUbicacion,
 } from './entities/master-datum.entity';
 
 @Module({
@@ -24,6 +26,8 @@ import {
       MasterDataEstadoChip,
       MasterDataTipoChip,
       MasterDataTipoEquipo,
+      MasterDataRole,
+      MasterDataUbicacion,
     ]),
   ],
   controllers: [MasterDataController],
