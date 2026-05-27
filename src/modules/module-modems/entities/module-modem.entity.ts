@@ -41,6 +41,9 @@ export class EntityMoculesModems {
   @Column({ name: 'id_area', type: 'int', nullable: true })
   id_area?: number | null;
 
+  @Column({ name: 'ticket', type: 'varchar', nullable: true })
+  ticket?: string | null;
+
   @Column({ name: 'usuario', type: 'int', nullable: true })
   usuario?: number | null;
 
@@ -48,7 +51,7 @@ export class EntityMoculesModems {
   num_Chip?: number | null;
 
   @Column({ name: 'fecha_registro', type: 'datetime' })
-  fecha_registro: Date;
+  fecha_registro?: Date;
 
   @Column({ name: 'activo', type: 'bit' })
   activo?: boolean | null;

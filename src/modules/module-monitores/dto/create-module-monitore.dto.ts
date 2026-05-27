@@ -11,15 +11,15 @@ export class CreateModuleMonitoreDto {
   @IsString()
   
   @MaxLength(60)
-  serie: string;
+  serie?: string;
 
   @IsString()
   @MaxLength(50)
-  marca: string;
+  marca?: string;
 
   @IsString()
   @MaxLength(50)
-  modelo: string;
+  modelo?: string;
 
   @IsOptional()
   @Type(() => Number)
@@ -35,6 +35,11 @@ export class CreateModuleMonitoreDto {
   @Type(() => Number)
   @IsInt()
   id_area?: number;
+
+  @IsOptional()
+
+  @IsString()
+  ticket?:string | null;
 
   @IsOptional()
   @Type(() => Number)

@@ -45,6 +45,7 @@ export class ModuleTabletService {
         estado_equipo: t.estado_equipo,
         estado_equipo_desc: t.estadoEquipoRef?.descripcion ?? null,
         id_area: t.id_area,
+        ticket:t.ticket,
         area_desc: t.areaRef?.nombre_area ?? null,
         usuario: t.usuario,
         usuario_desc: t.colaboradorRef?.nombre_completo ?? null,

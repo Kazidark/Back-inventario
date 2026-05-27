@@ -2,8 +2,31 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { exec } from 'child_process';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { ResponseTransformInterceptor } from './common/interceptors/response-transform.interceptor';
+
+function openUrlInBrowser(url: string): void {
+  const command =
+    process.platform === 'win32'
+      ? `cmd /c start "" "${url}"`
+      : process.platform === 'darwin'
+        ? `open "${url}"`
+        : `xdg-open "${url}"`;
+
+  exec(command, (error) => {
+    if (error) {
+      console.warn(`No se pudo abrir Swagger en el navegador: ${error.message}`);
+    }
+  });
+}
+
+function shouldOpenSwaggerOnStart(): boolean {
+  if (process.env.OPEN_SWAGGER_ON_START === 'false') return false;
+  if (process.env.npm_lifecycle_event === 'start:dev') return true;
+  if (process.env.npm_lifecycle_event === 'start:debug') return true;
+  return process.env.NODE_ENV !== 'production';
+}
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -51,12 +74,24 @@ async function bootstrap() {
     .addTag('inventory')
     // .addBearerAuth() // TODO : para poder autenticar las peticiones con JWT
     .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('documentation', app, document);
+  const document = SwaggerModule.createDocument(app, config, {
+    deepScanRoutes: true,
+  });
+  SwaggerModule.setup('documentation', app, document, {
+    swaggerOptions: { persistAuthorization: true },
+  });
 
   //-------------------------------------
 
-  await app.listen(process.env.PORT ?? 3000);
-  console.log(`Server is running on port ${process.env.PORT ?? 3000}`);
+  const port = process.env.PORT ?? 3000;
+  await app.listen(port);
+
+  const swaggerUrl = `http://localhost:${port}/documentation`;
+  console.log(`Server is running on port ${port}`);
+  console.log(`Swagger: ${swaggerUrl}`);
+
+  if (shouldOpenSwaggerOnStart()) {
+    openUrlInBrowser(swaggerUrl);
+  }
 }
 bootstrap();

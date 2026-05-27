@@ -31,11 +31,13 @@ export class ModuleModemsService {
         estado_modem: createModuleModemDto.estado_modem,
         estado_equipo: createModuleModemDto.estado_equipo,
         id_area: createModuleModemDto.id_area,
-        usuario: createModuleModemDto.usuario,
+        ticket:createModuleModemDto.ticket ||'',
+        usuario: Number(createModuleModemDto.usuario),
         num_Chip: createModuleModemDto.id_chip,
         fecha_registro: createModuleModemDto.fecha_registro ?? new Date(),
         activo: createModuleModemDto.activo ?? true,
       };
+      console.log(modemData)
 
       const modem = this.moduleModemsRepository.create(modemData);
 
@@ -91,6 +93,7 @@ export class ModuleModemsService {
         chip_desc: m.chipsRef?.numero_chip ?? null,
         fecha_registro: m.fecha_registro,
         activo: m.activo,
+        ticket:m.ticket
       }));
     } catch (error) {
       throw new InternalServerErrorException(

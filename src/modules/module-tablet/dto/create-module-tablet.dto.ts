@@ -11,17 +11,17 @@ export class CreateModuleTabletDto {
   @IsString()
   @IsOptional()
   @MaxLength(50)
-  marca: string;
+  marca?: string;
 
   @IsString()
   @IsOptional()
   @MaxLength(80)
-  modelo: string;
+  modelo?: string;
 
   @IsString()
   @IsOptional()
   @MaxLength(50)
-  imei_tablet: string;
+  imei_tablet?: string;
 
   @IsOptional()
   @Type(() => Number)
@@ -37,6 +37,12 @@ export class CreateModuleTabletDto {
   @Type(() => Number)
   @IsInt()
   id_area?: number;
+
+
+  @IsOptional()
+  // @Type(() => Number)
+  @IsString()
+  ticket?: string | null;
 
   @IsOptional()
   @Type(() => Number)

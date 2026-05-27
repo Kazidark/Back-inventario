@@ -11,19 +11,19 @@ import { Type } from 'class-transformer';
 export class CreateLaptoDto {
   @IsString()
   @MaxLength(50)
-  tipo_equipo: string;
+  tipo_equipo?: string;
 
   @IsString()
   @MaxLength(50)
-  marca: string;
+  marca?: string;
 
   @IsString()
   @MaxLength(50)
-  modelo: string;
+  modelo?: string;
 
   @IsString()
   @MaxLength(60)
-  serie: string;
+  serie?: string;
 
   @IsOptional()
   @Type(() => Number)
@@ -40,10 +40,15 @@ export class CreateLaptoDto {
   @IsInt()
   id_area?: number;
 
+
   @IsOptional()
   @Type(() => Number)
   @IsInt()
   usuario?: number;
+   
+  @IsOptional()
+  @IsString()
+  ticket? :string| null
 
   /** ID de catálogo `TBLM_ubicacion` (maestro). */
   @IsOptional()

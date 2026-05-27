@@ -1,0 +1,8 @@
+{
+  "task.allowAutomaticTasks": "on",
+  "console-ninja.toolsToEnableSupportAutomaticallyFor": {
+    "nest.js": false,
+    "webpack": false
+  },
+  "console-ninja.showWelcomeMessageInTools": false
+}

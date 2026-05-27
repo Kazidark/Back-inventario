@@ -16,34 +16,37 @@ import { EntityMoculesChips } from '../../module-chips/entities/module-chip.enti
 @Entity('tablets')
 export class ModuleTablet {
   @PrimaryGeneratedColumn({ name: 'id_tablet', type: 'int' })
-  id_tablet: number;
+  id_tablet?: number;
 
   @Column({ name: 'marca', type: 'varchar', length: 50 })
-  marca: string;
+  marca?: string;
 
   @Column({ name: 'modelo', type: 'varchar', length: 80 })
-  modelo: string;
+  modelo?: string;
 
   @Column({ name: 'imei_tablet', type: 'varchar', length: 50 })
-  imei_tablet: string;
+  imei_tablet?: string;
 
   @Column({ name: 'estado_tablet', type: 'int', nullable: true })
-  estado_tablet: number | null;
+  estado_tablet?: number | null;
 
   @Column({ name: 'estado_equipo', type: 'int', nullable: true })
-  estado_equipo: number | null;
+  estado_equipo?: number | null;
 
   @Column({ name: 'id_area', type: 'int', nullable: true })
-  id_area: number | null;
+  id_area?: number | null;
+
+  @Column({ name: 'ticket', type: 'varchar', nullable: true })
+  ticket?: string | null;
 
   @Column({ name: 'usuario', type: 'int', nullable: true })
-  usuario: number | null;
+  usuario?: number | null;
 
   @Column({ name: 'num_chips', type: 'int', nullable: true })
-  num_chips: number | null;
+  num_chips?: number | null;
 
   @Column({ name: 'ubicacion', type: 'varchar', length: 100, nullable: true })
-  ubicacion: string | null;
+  ubicacion?: string | null;
 
   @Column({
     name: 'observaciones',
@@ -51,13 +54,13 @@ export class ModuleTablet {
     length: 255,
     nullable: true,
   })
-  observaciones: string | null;
+  observaciones?: string | null;
 
   @Column({ name: 'fecha_registro', type: 'datetime', nullable: true })
-  fecha_registro: Date | null;
+  fecha_registro?: Date | null;
 
   @Column({ name: 'activo', type: 'bit', nullable: true })
-  activo: boolean | null;
+  activo?: boolean | null;
 
   @ManyToOne(() => MasterDataEstadoEquipo, {
     createForeignKeyConstraints: false,

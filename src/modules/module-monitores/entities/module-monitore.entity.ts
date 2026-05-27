@@ -15,31 +15,36 @@ import {
 @Entity('monitores')
 export class ModuleMonitore {
   @PrimaryGeneratedColumn({ name: 'id_monitor', type: 'int' })
-  id_monitor: number;
+  id_monitor?: number;
 
   @Column({ name: 'serie', type: 'varchar', length: 60 })
-  serie: string;
+  serie?: string;
 
   @Column({ name: 'marca', type: 'varchar', length: 50 })
-  marca: string;
+  marca?: string;
 
   @Column({ name: 'modelo', type: 'varchar', length: 50 })
-  modelo: string;
+  modelo?: string;
 
   @Column({ name: 'estado_monitor', type: 'int', nullable: true })
-  estado_monitor: number | null;
+  estado_monitor?: number | null;
 
   @Column({ name: 'status_monitor', type: 'int', nullable: true })
-  status_monitor: number | null;
+  status_monitor?: number | null;
 
   @Column({ name: 'id_area', type: 'int', nullable: true })
-  id_area: number | null;
+  id_area?: number | null;
 
+  
+  @Column({ name: 'ticket', type: 'varchar', nullable: true })
+  ticket?: string | null;
+
+  
   @Column({ name: 'usuario', type: 'int', nullable: true })
-  usuario: number | null;
+  usuario?: number | null;
 
   @Column({ name: 'ubicacion', type: 'varchar', length: 100, nullable: true })
-  ubicacion: string | null;
+  ubicacion?: string | null;
 
   @Column({
     name: 'observaciones',
@@ -47,16 +52,16 @@ export class ModuleMonitore {
     length: 255,
     nullable: true,
   })
-  observaciones: string | null;
+  observaciones?: string | null;
 
   @Column({ name: 'activo', type: 'bit' })
-  activo: boolean;
+  activo?: boolean;
 
   @Column({ name: 'fecha_registro', type: 'datetime' })
-  fecha_registro: Date;
+  fecha_registro?: Date;
 
   @Column({ name: 'anexo', type: 'int', nullable: true })
-  anexo: number | null;
+  anexo?: number | null;
 
   @ManyToOne(() => MasterDataEstadoEquipo, {
     createForeignKeyConstraints: false,

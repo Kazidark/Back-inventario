@@ -37,6 +37,7 @@ export class LaptosService {
       estado_equipo: p.estado_equipo,
       estado_equipo_desc: p.estadoEquipoRef?.descripcion ?? null,
       id_area: p.id_area,
+      ticket:p.ticket,
       nombre_area: p.areaRef?.nombre_area ?? null,
       usuario: p.usuario,
       nombre_colaborador: p.colaboradorRef?.nombre_completo ?? null,

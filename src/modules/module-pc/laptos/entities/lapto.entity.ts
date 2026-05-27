@@ -16,34 +16,37 @@ import {
 @Entity('pcs_laptops')
 export class Lapto {
   @PrimaryGeneratedColumn({ name: 'id_pc', type: 'int' })
-  id_pc: number;
+  id_pc?: number;
 
   @Column({ name: 'tipo_equipo', type: 'varchar', length: 50 })
-  tipo_equipo: string;
+  tipo_equipo?: string;
 
   @Column({ name: 'marca', type: 'varchar', length: 50 })
-  marca: string;
+  marca?: string;
 
   @Column({ name: 'modelo', type: 'varchar', length: 50 })
-  modelo: string;
+  modelo?: string;
 
   @Column({ name: 'serie', type: 'varchar', length: 60 })
-  serie: string;
+  serie?: string;
 
   @Column({ name: 'estado_equipo', type: 'int', nullable: true })
-  estado_equipo: number | null;
+  estado_equipo?: number | null;
 
   @Column({ name: 'estado_pc', type: 'int', nullable: true })
-  estado_pc: number | null;
+  estado_pc?: number | null;
 
   @Column({ name: 'id_area', type: 'int', nullable: true })
-  id_area: number | null;
+  id_area?: number | null;
+
+  @Column({ name: 'ticket', type: 'varchar', nullable: true })
+  ticket?: string | null;
 
   @Column({ name: 'usuario', type: 'int', nullable: true })
-  usuario: number | null;
+  usuario?: number | null;
 
   @Column({ name: 'ubicacion', type: 'int', nullable: true })
-  ubicacion: number | null;
+  ubicacion?: number | null;
 
   @Column({
     name: 'observaciones',
@@ -51,16 +54,16 @@ export class Lapto {
     length: 255,
     nullable: true,
   })
-  observaciones: string | null;
+  observaciones?: string | null;
 
   @Column({ name: 'fecha_registro', type: 'datetime' })
-  fecha_registro: Date;
+  fecha_registro?: Date;
 
   @Column({ name: 'activo', type: 'bit' })
-  activo: boolean;
+  activo?: boolean;
 
   @Column({ name: 'anexo', type: 'int', nullable: true })
-  anexo: number | null;
+  anexo?: number | null;
 
   @ManyToOne(() => MasterDataEstadoEquipo, {
     createForeignKeyConstraints: false,

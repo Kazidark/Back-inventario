@@ -41,6 +41,7 @@ export class ModuleMonitoresService {
         status_monitor: m.status_monitor,
         status_monitor_desc: m.statusMonitorRef?.descripcion ?? null,
         id_area: m.id_area,
+        ticket:m.ticket,
         nombre_area: m.areaRef?.nombre_area ?? null,
         usuario: m.usuario,
         nombre_colaborador: m.colaboradorRef?.nombre_completo ?? null,
@@ -74,7 +75,7 @@ export class ModuleMonitoresService {
       const monitor = this.moduleMonitoresRepository.create({
         ...dto,
         activo: dto.activo ?? true,
-        fecha_registro: dto.fecha_registro ?? new Date(),
+        fecha_registro: dto.fecha_registro ?? new Date()  ,
       });
       return await this.moduleMonitoresRepository.save(monitor);
     } catch (error) {

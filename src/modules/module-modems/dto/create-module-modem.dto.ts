@@ -3,8 +3,10 @@ import {
   IsDateString,
   IsInt,
   IsOptional,
+  isString,
   IsString,
 } from 'class-validator';
+import { StorageEngine } from 'multer';
 
 export class CreateModuleModemDto {
   @IsOptional()
@@ -30,6 +32,10 @@ export class CreateModuleModemDto {
   @IsOptional()
   @IsInt()
   id_area?: number | null;
+
+ @IsOptional()
+ @IsString()
+  ticket?:string | null
 
   @IsOptional()
   @IsInt()
