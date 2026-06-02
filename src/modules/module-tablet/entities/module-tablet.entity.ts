@@ -45,8 +45,8 @@ export class ModuleTablet {
   @Column({ name: 'num_chips', type: 'int', nullable: true })
   num_chips?: number | null;
 
-  @Column({ name: 'ubicacion', type: 'varchar', length: 100, nullable: true })
-  ubicacion?: string | null;
+  @Column({ name: 'ubicacion', type: 'int', nullable: true })
+  ubicacion?: number | null;
 
   @Column({
     name: 'observaciones',

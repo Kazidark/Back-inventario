@@ -924,10 +924,7 @@ export class SubirArchivoService {
         status_monitor: status_monitor_id,
         id_area,
         usuario,
-        ubicacion: this.truncateValue(
-          this.getExcelField(item, 'UBICACION', 'UBICACIÓN'),
-          100,
-        ) || null,
+        ubicacion:  null,
         observaciones:
           this.truncateValue(
             this.getExcelField(item, 'OBSERVACION', 'OBSERVACIONES'),
@@ -1156,9 +1153,7 @@ export class SubirArchivoService {
         estado_equipo: estado_equipo_id,
         id_area,
         usuario,
-        ubicacion:
-          this.truncateValue(this.getExcelField(item, 'KIOSKO', 'UBICACION'), 100) ||
-          null,
+        ubicacion:null,
         observaciones:
           this.truncateValue(
             this.getExcelField(item, 'OBS1', 'OBSERVACION', 'OBSERVACIONES'),

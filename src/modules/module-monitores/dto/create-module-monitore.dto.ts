@@ -47,9 +47,9 @@ export class CreateModuleMonitoreDto {
   usuario?: number;
 
   @IsOptional()
-  @IsString()
-  @MaxLength(100)
-  ubicacion?: string;
+  @Type(() => Number)
+  @IsInt()
+  ubicacion?: number;
 
   @IsOptional()
   @IsString()

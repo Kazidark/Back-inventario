@@ -43,8 +43,8 @@ export class ModuleMonitore {
   @Column({ name: 'usuario', type: 'int', nullable: true })
   usuario?: number | null;
 
-  @Column({ name: 'ubicacion', type: 'varchar', length: 100, nullable: true })
-  ubicacion?: string | null;
+  @Column({ name: 'ubicacion', type: 'int', nullable: true })
+  ubicacion?: number | null;
 
   @Column({
     name: 'observaciones',
