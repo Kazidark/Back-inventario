@@ -62,6 +62,27 @@ export class ModuleChipsService {
     }
   }
 
+  /** Filas con textos de catálogo para exportar / reimportar Excel. */
+  async findAllChipsForExcel() {
+    const chips = await this.findAllChips();
+    return chips.map((c) => ({
+      id_chip: c.id_chip,
+      numero_chip:
+        c.numero_chip != null ? String(c.numero_chip).trim() : null,
+      iccid: c.iccid ?? null,
+      uso_desc: c.tipoChipRel?.descripcion_tipo_chip ?? null,
+      area_desc: c.areaRel?.nombre_area ?? null,
+      usuario_desc: c.colaboradorRel?.nombre_completo ?? null,
+      estado_desc: c.estadoChipRel?.nombreChips ?? null,
+      operador_desc: c.operadorRel?.nombre_operador ?? null,
+      observacion: c.observacion ?? null,
+      ticket: c.ticket ?? null,
+      correo_electronico: c.correo_electronico ?? null,
+      activo: c.activo,
+      fecha_registro: c.fecha_registro,
+    }));
+  }
+
   async AllChipsDisponibles() {
     try {
       const chipActive = await this.moduleChipsRepository.find({

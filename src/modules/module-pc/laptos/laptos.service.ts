@@ -9,6 +9,7 @@ import { UpdateLaptoDto } from './dto/update-lapto.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeepPartial, Repository } from 'typeorm';
 import { Lapto } from './entities/lapto.entity';
+import { mapLaptopEstadoPcToStatusExport } from '../../subir-archivo/laptop-excel.util';
 
 @Injectable()
 export class LaptosService {
@@ -66,6 +67,26 @@ export class LaptosService {
     }
   }
 
+  /** Filas con textos de catálogo para exportar / reimportar Excel (formato laptos.xlsx). */
+  async findAllPcsForExcel() {
+    const rows = await this.findAllPc();
+    return rows.map((p) => ({
+      tipo_equipo: p.tipo_equipo ?? '',
+      marca: p.marca ?? '',
+      modelo: p.modelo ?? '',
+      serie: p.serie ?? '',
+      estado_pc_status: mapLaptopEstadoPcToStatusExport(p.estado_pc_desc),
+      estado_equipo_desc: p.estado_equipo_desc ?? '',
+      area_desc: p.nombre_area ?? '',
+      usuario_desc: p.nombre_colaborador ?? '',
+      ticket: p.ticket ?? '',
+      ubicacion_desc: p.nombre_ubicacion ?? p.ubicacion ?? '',
+      observaciones: p.observaciones ?? '',
+      anexo: p.anexo != null ? String(p.anexo) : '',
+      activo: p.activo ? 'SI' : 'NO',
+    }));
+  }
+
   async findPcById(id: number) {
     try {
       const p = await this.pcRepository.findOne({
@@ -80,14 +101,77 @@ export class LaptosService {
     }
   }
 
+  private mapDtoToLaptop(
+    dto: CreateLaptoDto | UpdateLaptoDto,
+    partial = false,
+  ): DeepPartial<Lapto> {
+    const mapped: DeepPartial<Lapto> = {};
+
+    if (dto.tipo_equipo !== undefined) {
+      mapped.tipo_equipo = dto.tipo_equipo?.trim() ?? '';
+    } else if (!partial) {
+      mapped.tipo_equipo = '';
+    }
+    if (dto.marca !== undefined) {
+      mapped.marca = dto.marca?.trim() ?? '';
+    } else if (!partial) {
+      mapped.marca = '';
+    }
+    if (dto.modelo !== undefined) {
+      mapped.modelo = dto.modelo?.trim() ?? '';
+    } else if (!partial) {
+      mapped.modelo = '';
+    }
+    if (dto.serie !== undefined) {
+      mapped.serie = dto.serie?.trim() ?? '';
+    } else if (!partial) {
+      mapped.serie = '';
+    }
+    if (dto.estado_pc !== undefined) {
+      mapped.estado_pc = dto.estado_pc;
+    }
+    if (dto.estado_equipo !== undefined) {
+      mapped.estado_equipo = dto.estado_equipo;
+    }
+    if (dto.id_area !== undefined) {
+      mapped.id_area = dto.id_area;
+    }
+    if (dto.usuario !== undefined) {
+      mapped.usuario = dto.usuario;
+    }
+    if (dto.ubicacion !== undefined) {
+      mapped.ubicacion = dto.ubicacion;
+    }
+    if (dto.ticket !== undefined) {
+      mapped.ticket = dto.ticket?.trim() || null;
+    }
+    if (dto.observaciones !== undefined) {
+      mapped.observaciones = dto.observaciones?.trim() || null;
+    }
+    if (dto.anexo !== undefined) {
+      mapped.anexo = dto.anexo;
+    }
+    if (dto.activo !== undefined) {
+      mapped.activo = dto.activo;
+    }
+
+    return mapped;
+  }
+
   async createPc(dto: CreateLaptoDto) {
     try {
-      const pc = this.pcRepository.create({
-        ...dto,
-        activo: dto.activo ?? true,
-        fecha_registro: dto.fecha_registro ?? new Date(),
+      const created = await this.pcRepository.save(
+        this.pcRepository.create({
+          ...this.mapDtoToLaptop(dto, false),
+          activo: dto.activo ?? true,
+          fecha_registro: dto.fecha_registro ?? new Date(),
+        }),
+      );
+      const full = await this.pcRepository.findOne({
+        where: { id_pc: created.id_pc },
+        relations: this.pcRelations,
       });
-      return await this.pcRepository.save(pc);
+      return full ? this.mapPcToResponse(full) : created;
     } catch (error) {
       throw new InternalServerErrorException(
         error instanceof Error ? error.message : 'Error inesperado',
@@ -105,12 +189,14 @@ export class LaptosService {
         );
       }
 
-      const merged = this.pcRepository.merge(
-        pc,
-        dto as DeepPartial<Lapto>,
-      );
+      const patch = this.mapDtoToLaptop(dto, true);
+      await this.pcRepository.save({ ...pc, ...patch });
 
-      return await this.pcRepository.save(merged);
+      const full = await this.pcRepository.findOne({
+        where: { id_pc: id },
+        relations: this.pcRelations,
+      });
+      return full ? this.mapPcToResponse(full) : null;
     } catch (error) {
       if (error instanceof HttpException) {
         throw error;

@@ -1,16 +1,91 @@
 import {
   BadRequestException,
   Controller,
+  Get,
   Post,
+  Res,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
+import type { Response } from 'express';
 import { SubirArchivoService } from './subir-archivo.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('excel')
 export class SubirArchivoController {
   constructor(private readonly subirArchivoService: SubirArchivoService) { }
+
+  /** Plantilla vacía con columnas para importar módems (mismos nombres que exportación). */
+  @Get('modems/plantilla')
+  async downloadModemPlantilla(@Res() res: Response): Promise<void> {
+    const { fileName, buffer } =
+      await this.subirArchivoService.buildModemTemplateExcel();
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    );
+    res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+    res.send(buffer);
+  }
+
+  @Get('celulares/plantilla')
+  async downloadCelularPlantilla(@Res() res: Response): Promise<void> {
+    const { fileName, buffer } =
+      await this.subirArchivoService.buildCelularTemplateExcel();
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    );
+    res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+    res.send(buffer);
+  }
+
+  @Get('chips/plantilla')
+  async downloadChipPlantilla(@Res() res: Response): Promise<void> {
+    const { fileName, buffer } =
+      await this.subirArchivoService.buildChipTemplateExcel();
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    );
+    res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+    res.send(buffer);
+  }
+
+  @Get('laptos/plantilla')
+  async downloadLaptopPlantilla(@Res() res: Response): Promise<void> {
+    const { fileName, buffer } =
+      await this.subirArchivoService.buildLaptopTemplateExcel();
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    );
+    res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+    res.send(buffer);
+  }
+
+  /** Compruebe en el navegador: http://localhost:3000/api/excel/tablets/import-version */
+  @Get('tablets/import-version')
+  getTabletImportVersion() {
+    return {
+      importVersion: 'tablets-catalog-fk-v3',
+      descripcion:
+        'Importa ESTADO OPERATIVO → estado_tablet, ESTADO DEL EQUIPO → estado_equipo, UBICACIÓN → ubicacion (IDs de tablas maestras).',
+    };
+  }
+
+  @Get('tablets/plantilla')
+  async downloadTabletPlantilla(@Res() res: Response): Promise<void> {
+    const { fileName, buffer } =
+      await this.subirArchivoService.buildTabletTemplateExcel();
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    );
+    res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+    res.send(buffer);
+  }
+
    /**
     *NOTE API PARA SUBIR  EXEL DE  MODEL
    */

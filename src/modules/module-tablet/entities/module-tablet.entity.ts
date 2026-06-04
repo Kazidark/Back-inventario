@@ -10,6 +10,7 @@ import {
   MasterDataAsignacion,
   MasterDataColaborador,
   MasterDataEstadoEquipo,
+  MasterDataUbicacion,
 } from '../../master-data/entities/master-datum.entity';
 import { EntityMoculesChips } from '../../module-chips/entities/module-chip.entity';
 
@@ -87,4 +88,10 @@ export class ModuleTablet {
   @ManyToOne(() => EntityMoculesChips, { createForeignKeyConstraints: false })
   @JoinColumn({ name: 'num_chips', referencedColumnName: 'id_chip' })
   chipRef?: EntityMoculesChips;
+
+  @ManyToOne(() => MasterDataUbicacion, {
+    createForeignKeyConstraints: false,
+  })
+  @JoinColumn({ name: 'ubicacion', referencedColumnName: 'id' })
+  ubicacionRef?: MasterDataUbicacion;
 }

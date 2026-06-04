@@ -1,0 +1,83 @@
+{
+  "success": true,
+  "message": "Archivo de tablets procesado. Nuevos: 354, actualizados: 0, sin cambios: 0, sin IMEI: 68. Con estado tablet (ID): 332, con estado equipo (ID): 319, con ubicación (ID): 306.",
+  "totalRows": 425,
+  "result": [
+    {
+      "inserted": 354,
+      "updated": 0,
+      "unchanged": 0,
+      "duplicateInFile": 3,
+      "skippedWithoutImei": 68,
+      "estadoTabletResolved": 332,
+      "estadoEquipoResolved": 319,
+      "ubicacionResolved": 306,
+      "warnings": [
+        "Fila 9: ICCID \"REPUESTO\" no se pudo vincular (revise catálogo chips)",
+        "Fila 85: IMEI duplicado en el archivo \"-\"",
+        "Fila 225: ICCID \"8951101630895221016\" no se pudo vincular (revise catálogo chips)",
+        "Fila 240: ICCID \"89511500025686700180\" no se pudo vincular (revise catálogo chips)",
+        "Fila 258: ICCID \"8951064012421005624\" no se pudo vincular (revise catálogo chips)",
+        "Fila 291: ICCID \"89511710120823031627\" no se pudo vincular (revise catálogo chips)",
+        "Fila 306: AREA \"?\" no está en catálogo de áreas",
+        "Fila 308: AREA \"?\" no está en catálogo de áreas",
+        "Fila 309: AREA \"?\" no está en catálogo de áreas",
+        "Fila 310: AREA \"?\" no está en catálogo de áreas",
+        "Fila 311: AREA \"?\" no está en catálogo de áreas",
+        "Fila 312: AREA \"?\" no está en catálogo de áreas",
+        "Fila 313: AREA \"?\" no está en catálogo de áreas",
+        "Fila 314: AREA \"?\" no está en catálogo de áreas",
+        "Fila 315: AREA \"?\" no está en catálogo de áreas",
+        "Fila 386: IMEI duplicado en el archivo \"351089960605671\"",
+        "Fila 389: ICCID \"NO TIENE\" no se pudo vincular (revise catálogo chips)",
+        "Fila 421: IMEI duplicado en el archivo \"359839765647688\"",
+        "Fila 423: AREA \"ALMACEN FARMACEUTICA\" no está en catálogo de áreas",
+        "Fila 424: AREA \"ALMACEN FARMACEUTICA\" no está en catálogo de áreas"
+      ]
+    }
+  ],
+  "summary": {
+    "inserted": 354,
+    "updated": 0,
+    "unchanged": 0,
+    "duplicateInFile": 3,
+    "skippedWithoutImei": 68,
+    "estadoTabletResolved": 332,
+    "estadoEquipoResolved": 319,
+    "ubicacionResolved": 306,
+    "warnings": [
+      "Fila 9: ICCID \"REPUESTO\" no se pudo vincular (revise catálogo chips)",
+      "Fila 85: IMEI duplicado en el archivo \"-\"",
+      "Fila 225: ICCID \"8951101630895221016\" no se pudo vincular (revise catálogo chips)",
+      "Fila 240: ICCID \"89511500025686700180\" no se pudo vincular (revise catálogo chips)",
+      "Fila 258: ICCID \"8951064012421005624\" no se pudo vincular (revise catálogo chips)",
+      "Fila 291: ICCID \"89511710120823031627\" no se pudo vincular (revise catálogo chips)",
+      "Fila 306: AREA \"?\" no está en catálogo de áreas",
+      "Fila 308: AREA \"?\" no está en catálogo de áreas",
+      "Fila 309: AREA \"?\" no está en catálogo de áreas",
+      "Fila 310: AREA \"?\" no está en catálogo de áreas",
+      "Fila 311: AREA \"?\" no está en catálogo de áreas",
+      "Fila 312: AREA \"?\" no está en catálogo de áreas",
+      "Fila 313: AREA \"?\" no está en catálogo de áreas",
+      "Fila 314: AREA \"?\" no está en catálogo de áreas",
+      "Fila 315: AREA \"?\" no está en catálogo de áreas",
+      "Fila 386: IMEI duplicado en el archivo \"351089960605671\"",
+      "Fila 389: ICCID \"NO TIENE\" no se pudo vincular (revise catálogo chips)",
+      "Fila 421: IMEI duplicado en el archivo \"359839765647688\"",
+      "Fila 423: AREA \"ALMACEN FARMACEUTICA\" no está en catálogo de áreas",
+      "Fila 424: AREA \"ALMACEN FARMACEUTICA\" no está en catálogo de áreas"
+    ]
+  },
+  "headers": [
+    "MARCA",
+    "MODELO",
+    "IMEI",
+    "ESTADO TABLET",
+    "ESTADO EQUIPO",
+    "AREA",
+    "ICCID",
+    "UBICACION",
+    "OBSERVACIONES",
+    "TICKET"
+  ]
+}

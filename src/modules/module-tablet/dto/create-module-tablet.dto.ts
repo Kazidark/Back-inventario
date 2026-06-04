@@ -47,12 +47,12 @@ export class CreateModuleTabletDto {
   @IsOptional()
   @Type(() => Number)
   @IsInt()
-  usuario?: number;
+  usuario?: number | null;
 
   @IsOptional()
   @Type(() => Number)
   @IsInt()
-  ubicacion?: number;
+  ubicacion?: number | null;
 
   @IsOptional()
   @IsString()

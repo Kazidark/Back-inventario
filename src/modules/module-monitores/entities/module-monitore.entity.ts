@@ -10,6 +10,7 @@ import {
   MasterDataAsignacion,
   MasterDataColaborador,
   MasterDataEstadoEquipo,
+  MasterDataUbicacion,
 } from '../../master-data/entities/master-datum.entity';
 
 @Entity('monitores')
@@ -84,4 +85,10 @@ export class ModuleMonitore {
   })
   @JoinColumn({ name: 'usuario', referencedColumnName: 'id_colaborador' })
   colaboradorRef?: MasterDataColaborador;
+
+  @ManyToOne(() => MasterDataUbicacion, {
+    createForeignKeyConstraints: false,
+  })
+  @JoinColumn({ name: 'ubicacion', referencedColumnName: 'id' })
+  ubicacionRef?: MasterDataUbicacion;
 }

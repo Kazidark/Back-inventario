@@ -1,5 +1,15 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import ExcelJS from 'exceljs';
+import { buildCelularExcelBuffer } from '../subir-archivo/celular-excel.util';
+import type { CelularExcelRow } from '../subir-archivo/celular-excel.util';
+import { buildLaptopExcelBuffer } from '../subir-archivo/laptop-excel.util';
+import type { LaptopExcelRow } from '../subir-archivo/laptop-excel.util';
+import { buildTabletExcelBuffer } from '../subir-archivo/tablet-excel.util';
+import type { TabletExcelRow } from '../subir-archivo/tablet-excel.util';
+import { buildChipExcelBuffer } from '../subir-archivo/chip-excel.util';
+import type { ChipExcelRow } from '../subir-archivo/chip-excel.util';
+import { buildModemExcelBuffer } from '../subir-archivo/modem-excel.util';
+import type { ModemExcelRow } from '../subir-archivo/modem-excel.util';
 import { ModuleModemsService } from '../module-modems/module-modems.service';
 import { ModuleChipsService } from '../module-chips/module-chips.service';
 import { ModuleCelularesService } from '../module-celulares/module-celulares.service';
@@ -56,6 +66,46 @@ export class ExportsService {
       );
     }
 
+    if (moduleKey === 'modems') {
+      const buffer = await this.buildModemsImportExcelBuffer();
+      return {
+        fileName: this.buildFileName(moduleKey),
+        buffer,
+      };
+    }
+
+    if (moduleKey === 'chips') {
+      const buffer = await this.buildChipsImportExcelBuffer();
+      return {
+        fileName: this.buildFileName(moduleKey),
+        buffer,
+      };
+    }
+
+    if (moduleKey === 'celulares') {
+      const buffer = await this.buildCelularesImportExcelBuffer();
+      return {
+        fileName: this.buildFileName(moduleKey),
+        buffer,
+      };
+    }
+
+    if (moduleKey === 'laptos') {
+      const buffer = await this.buildLaptosImportExcelBuffer();
+      return {
+        fileName: this.buildFileName(moduleKey),
+        buffer,
+      };
+    }
+
+    if (moduleKey === 'tablets') {
+      const buffer = await this.buildTabletsImportExcelBuffer();
+      return {
+        fileName: this.buildFileName(moduleKey),
+        buffer,
+      };
+    }
+
     const config = await this.resolveModuleConfig(moduleKey);
     const workbook = this.createWorkbook(config);
     const output = await workbook.xlsx.writeBuffer();
@@ -65,6 +115,118 @@ export class ExportsService {
       fileName: this.buildFileName(moduleKey),
       buffer,
     };
+  }
+
+  /** Excel de módems con nombres de columna listos para volver a importar. */
+  private async buildModemsImportExcelBuffer(): Promise<Buffer> {
+    const rows = (await this.moduleModemsService.findAllModems()) as Array<{
+      marca?: string | null;
+      modelo?: string | null;
+      imei_modem?: string | null;
+      estado_modem_desc?: string | null;
+      estado_equipo_desc?: string | null;
+      area_desc?: string | null;
+      usuario_desc?: string | null;
+      chip_desc?: string | null;
+      ticket?: string | null;
+    }>;
+
+    const excelRows: ModemExcelRow[] = rows.map((row) => ({
+      MARCA: row.marca ?? '',
+      MODELO: row.modelo ?? '',
+      IMEI: row.imei_modem != null ? String(row.imei_modem) : '',
+      'ESTADO OPERATIVO': row.estado_modem_desc ?? '',
+      'ESTADO DEL EQUIPO': row.estado_equipo_desc ?? '',
+      AREA: row.area_desc ?? '',
+      USUARIO: row.usuario_desc ?? '',
+      'NUMERO CHIP':
+        row.chip_desc != null && row.chip_desc !== ''
+          ? String(row.chip_desc)
+          : '',
+      TICKET: row.ticket != null ? String(row.ticket) : '',
+    }));
+
+    return buildModemExcelBuffer(excelRows);
+  }
+
+  /** Excel de chips con nombres de columna listos para volver a importar. */
+  private async buildChipsImportExcelBuffer(): Promise<Buffer> {
+    const rows = await this.moduleChipsService.findAllChipsForExcel();
+
+    const excelRows: ChipExcelRow[] = rows.map((row) => ({
+      NUMERO: row.numero_chip ?? '',
+      ICCID: row.iccid ?? '',
+      USO: row.uso_desc ?? '',
+      AREA: row.area_desc ?? '',
+      USUARIO: row.usuario_desc ?? '',
+      ESTADO: row.estado_desc ?? '',
+      OPERADOR: row.operador_desc ?? '',
+      OBSERVACIONES: row.observacion ?? '',
+      TICKET: row.ticket ?? '',
+    }));
+
+    return buildChipExcelBuffer(excelRows);
+  }
+
+  private async buildCelularesImportExcelBuffer(): Promise<Buffer> {
+    const rows = await this.moduleCelularesService.findAllCelularesForExcel();
+
+    const excelRows: CelularExcelRow[] = rows.map((row) => ({
+      MARCA: row.marca ?? '',
+      MODELO: row.modelo ?? '',
+      IMEI: row.imei_celular ?? '',
+      'ESTADO CELULAR': row.estado_celular_desc ?? '',
+      'ESTADO EQUIPO': row.estado_equipo_desc ?? '',
+      AREA: row.area_desc ?? '',
+      USUARIO: row.usuario_desc ?? '',
+      ICCID: row.iccid ?? '',
+      OBSERVACIONES: row.observacion ?? '',
+      TICKET: row.ticket ?? '',
+      EMAIL: row.email ?? '',
+    }));
+
+    return buildCelularExcelBuffer(excelRows);
+  }
+
+  private async buildLaptosImportExcelBuffer(): Promise<Buffer> {
+    const rows = await this.laptosService.findAllPcsForExcel();
+
+    const excelRows: LaptopExcelRow[] = rows.map((row) => ({
+      TIPO: row.tipo_equipo ?? '',
+      MARCA: row.marca ?? '',
+      MODELO: row.modelo ?? '',
+      SERIE: row.serie ?? '',
+      'ESTADO PC': row.estado_pc_status ?? '',
+      'ESTADO EQUIPO': row.estado_equipo_desc ?? '',
+      AREA: row.area_desc ?? '',
+      USUARIO: row.usuario_desc ?? '',
+      TICKET: row.ticket ?? '',
+      UBICACION: row.ubicacion_desc ?? '',
+      OBSERVACIONES: row.observaciones ?? '',
+      ANEXO: row.anexo ?? '',
+      ACTIVO: row.activo ?? '',
+    }));
+
+    return buildLaptopExcelBuffer(excelRows);
+  }
+
+  private async buildTabletsImportExcelBuffer(): Promise<Buffer> {
+    const rows = await this.moduleTabletService.findAllTabletsForExcel();
+
+    const excelRows: TabletExcelRow[] = rows.map((row) => ({
+      AREA: row.area_desc ?? '',
+      MARCA: row.marca ?? '',
+      MODELO: row.modelo ?? '',
+      IMEI: row.imei ?? '',
+      'ESTADO TABLET': row.estado_tablet_desc ?? '',
+      'ESTADO EQUIPO': row.estado_equipo_desc ?? '',
+      ICCID: row.iccid ?? '',
+      UBICACION: row.ubicacion_desc ?? '',
+      OBSERVACIONES: row.observaciones ?? '',
+      TICKET: row.ticket ?? '',
+    }));
+
+    return buildTabletExcelBuffer(excelRows);
   }
 
   private async resolveModuleConfig(
@@ -257,8 +419,14 @@ export class ExportsService {
               accessor: (row) => row.estado_equipo_desc ?? row.estado_equipo,
             },
             { header: 'Area', accessor: (row) => row.area_desc ?? row.id_area },
-            { header: 'Colaborador', accessor: (row) => row.usuario_desc ?? row.usuario },
-            { header: 'Ubicacion', accessor: (row) => row.ubicacion },
+            {
+              header: 'Colaborador',
+              accessor: (row) => row.usuario_desc ?? row.nombre_colaborador ?? row.usuario,
+            },
+            {
+              header: 'Ubicacion',
+              accessor: (row) => row.nombre_ubicacion ?? row.ubicacion_desc,
+            },
             { header: 'Observaciones', accessor: (row) => row.observaciones },
             { header: 'Activo', accessor: (row) => row.activo },
             { header: 'Fecha Registro', accessor: (row) => row.fecha_registro },
